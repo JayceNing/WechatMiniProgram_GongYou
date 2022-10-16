@@ -1,0 +1,61 @@
+{
+  "pages": [
+    "pages/Default/Default",
+    "pages/User/User",
+    "pages/Receive/Receive",
+    "pages/Pickup/Pickup",
+    "pages/List/List",
+    "pages/Detail/Detail",
+    "pages/User/register/register",
+    "pages/User/about/about",
+    "pages/User/bindAccount/bindAccount",
+    "pages/User/userInfo/userInfo",
+    "pages/Default/taskCreate/taskCreate",
+    "pages/MyTasks/myTasks",
+    "pages/Default/addressDetail/addressDetail",
+    "pages/task/taskDetail/taskDetail",
+    "pages/busTask/busTask",
+    "pages/Pickup/boxDetail/boxDetail",
+    "pages/myOrder/myOrder",
+    "pages/shop/shop",
+    "pages/crowdsourcing/crowdsourcing",
+    "pages/crowdsourcing/crowdsourcingDetail/crowdsourcingDetail"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将用于小程序地图定位"
+    }
+  },
+  "tabBar": {
+    "custom": true,
+    "selectedColor": "#4464FF",
+    "list": [
+      {
+        "pagePath": "pages/Default/Default",
+        "text": "首 页",
+        "iconPath": "images/icon/Default.png",
+        "selectedIconPath": "images/icon/Default_.png"
+      },
+      {
+        "pagePath": "pages/MyTasks/myTasks",
+        "text": "订 单",
+        "iconPath": "images/icon/Receive.png",
+        "selectedIconPath": "images/icon/Receive_.png"
+      },
+      {
+        "pagePath": "pages/User/User",
+        "text": "我 的",
+        "iconPath": "images/icon/User.png",
+        "selectedIconPath": "images/icon/User_.png"
+      }
+    ]
+  },
+  "window": {
+    "navigationStyle": "custom"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

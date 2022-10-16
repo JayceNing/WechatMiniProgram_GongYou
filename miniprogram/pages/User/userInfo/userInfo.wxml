@@ -1,0 +1,26 @@
+<!--pages/User/userInfo/userInfo.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">账号信息</view>
+</cu-custom>
+<view class='margin-xl bg-white padding-xl radius shadow-lg'>
+	<view class="cu-form-group margin-top">
+		<view class="title">真实姓名：<text wx:if="{{state==0}}">{{userinfo.userrealname}}</text></view>
+		<input wx:if="{{state==1}}" placeholder="请输入姓名" bindinput='userrealnameInput'></input>
+	</view>
+	<view class="cu-form-group margin-top">
+		<view class="title">手机号：<text wx:if="{{state==0}}">{{userinfo.phone}}</text></view>
+		<input wx:if="{{state==1}}" placeholder="请输入手机号" maxlength="11" bindinput='phoneInput'></input>
+	</view>
+</view>
+<view class="margin-tb-sm text-center" >
+	<button wx:if="{{state==0}}" class="cu-btn round bg-GongyouBlue shadow" bindtap="changeUserInfo">修改</button>
+	<button wx:else class="cu-btn round bg-cyan shadow" bindtap="submit">确定</button>
+</view>
+
+<!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+	<!-- <view class='cuIcon-emojifill text-orange'></view> -->
+	<image src='/images/logo.png' class='png' mode='aspectFit'></image>
+	<view class='gray-text'>查询中...</view>
+</view>

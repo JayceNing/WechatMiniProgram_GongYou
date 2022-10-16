@@ -1,0 +1,1 @@
+"D:\微信web开发者工具\cli.bat" cloud functions deploy --e tc-mad0q --n quickstartFunctions --r --project "D:\WeChatProjects\公邮net" --report

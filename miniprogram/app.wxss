@@ -1,0 +1,14 @@
+/**app.wxss**/
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
+@import "colorui/animation.wxss";
+
+.bg-GongyouBlue
+{
+  background-color:#4169E1;
+  color:white
+}
+.bg-GongyouGray
+{
+  background-color: rgb(245, 245, 245);
+}

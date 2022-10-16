@@ -1,0 +1,21 @@
+/* pages/Receive/Receive.wxss */
+
+.v {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: auto;
+  margin-top: 100rpx;
+}
+
+.box {
+  background-color: rgb(78, 97, 209);
+  display: flex;
+  align-items: center;
+  margin-top: 80rpx;
+  padding-inline: 50rpx;
+  border-radius: 20rpx;
+  width: 75%;
+  height: 150rpx;
+  color:rgb(255, 255, 255)
+}

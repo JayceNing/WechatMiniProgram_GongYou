@@ -1,0 +1,463 @@
+<!--pages/Default/Default.wxml-->
+<cu-custom bgColor="bg-GongyouBlue">
+  <view slot="content">公邮</view>
+</cu-custom>
+<view>
+  <image style="width:750rpx; height:252rpx" lazy-load='true' src="/images/banner.png"></image>
+</view>
+
+<view class="cu-card padding-xs bg-GongyouGray margin-right-sm margin-left-sm radius shadow lg margin-bottom">
+  <view class="map cu-card radius" style="--mapHeight--:{{mapHeight}}rpx">
+    <map class="map" id="map" markers="{{markers}}" min-scale="{{minScale}}" max-scale="{{maxScale}}"
+      latitude="{{location.latitude}}" longitude="{{location.longitude}}" scale="{{scale}}" setting="{{setting}}"
+      enable-overlooking="{{isOverLooking}}" enable-3D="{{is3D}}" show-compass="{{isShowCompass}}"
+      show-scale="{{isShowScale}}" polygons="{{polygon}}" polyline="{{polyline}}" bindmarkertap="onTapMarker"
+      style="--screenHeight--: {{screenHeight}}px">
+      <!-- <cover-image class="radius bg-white padding-sm shadow" style="width:50rpx; height:50rpx" src="/images/focus.png"
+        bindtap="tapGetLocation"></cover-image> -->
+      <image class="radius bg-white padding-sm shadow" style="width:66rpx; height:66rpx" src="/images/focus.png"
+        bindtap="tapGetLocation"></image>
+    </map>
+  </view>
+  <view class="text-center">
+    <view wx:if="{{identity==0}}" class="flex margin-top-xs margin-bottom-xs" style="width:400rpx;">
+      <button class="cu-btn round bg-GongyouBlue shadow" bindtap="changeMyIdentityTo0">拉货</button>
+      <button class="cu-btn round bg-white shadow text-gray" bindtap="changeMyIdentityTo1">车主</button>
+    </view>
+    <view wx:else class="flex margin-top-xs margin-bottom-xs" style="width:400rpx;">
+      <button class="cu-btn round bg-white text-gray shadow" bindtap="changeMyIdentityTo0">拉货</button>
+      <button class="cu-btn round bg-GongyouBlue shadow text-gray" bindtap="changeMyIdentityTo1">车主</button>
+    </view>
+  </view>
+  <block wx:if="{{identity==0}}">
+    <view class="cu-card bg-white radius shadow">
+      <view class='topTabSwiper'>
+        <view class='tab  {{type == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>汽车</view>
+        <view class='tab  {{type == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>电动车</view>
+        <view class='tab  {{type == 2 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>人力</view>
+      </view>
+      <swiper current="{{type}}" class='swiper bg-GongyouGray' interval="5000" duration="500" bindchange="cardSwiper">
+        <swiper-item class="swiper-item bg-white">
+          <image class="" style="height: 200rpx;width: auto;" mode="aspectFit" src="/images/type0.png"></image>
+          <view class="cu-card margin-left margin-right bg-GongyouGray radius shadow" style="height: 120rpx;">
+            <view class="grid col-3 bg-gray">
+              <view class="padding-sm">
+                <view class="radius text-center light">
+                  <view class="text-lg">重量</view>
+                  <view class=" text-orange">50kg以下<text class="text-sm text-orange"></text></view>
+                </view>
+              </view>
+              <view class="padding-sm">
+                <view class="radius text-center light">
+                  <view class="text-lg">体积</view>
+                  <view class="text-green">40*40*60<text class="text-sm text-green"></text></view>
+                </view>
+              </view>
+              <view class="padding-sm">
+                <view class="bg-white radius text-center light" bindtap="chooseICase">
+                  <view class="text-lg">智能箱</view>
+                  <view wx:if="{{iCase==0}}" class="text-red">否<text class="text-sm text-red"></text></view>
+                  <view wx:else class="text-green">是<text class="text-sm text-red"></text></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+        <swiper-item class="swiper-item bg-white">
+          <image class="" style="height: 200rpx;width: auto;" mode="aspectFit" src="/images/type1.png"></image>
+          <view class="cu-card margin-left margin-right bg-GongyouGray radius shadow" style="height: 120rpx;">
+            <view class="grid col-3 bg-gray">
+              <view class="padding-sm">
+                <view class="radius text-center light">
+                  <view class="text-lg">重量</view>
+                  <view class=" text-orange">20kg以下<text class="text-sm text-orange"></text></view>
+                </view>
+              </view>
+              <view class="padding-sm">
+                <view class="radius text-center light">
+                  <view class="text-lg">体积</view>
+                  <view class="text-green">40*40*20<text class="text-sm text-green"></text></view>
+                </view>
+              </view>
+              <view class="padding-sm">
+                <view class="bg-white radius text-center light" bindtap="chooseICase">
+                  <view class="text-lg">智能箱</view>
+                  <view wx:if="{{iCase==0}}" class="text-red">否<text class="text-sm text-red"></text></view>
+                  <view wx:else class="text-green">是<text class="text-sm text-red"></text></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+        <swiper-item class="swiper-item bg-white">
+          <image wx:if="{{iCase==0}}" class="" style="height: 200rpx;width: auto;" mode="aspectFit"
+            src="/images/type2no.png"></image>
+          <image wx:else class="" style="height: 200rpx;width: auto;" mode="aspectFit" src="/images/type2.png"></image>
+          <view class="cu-card margin-left margin-right bg-GongyouGray radius shadow" style="height: 120rpx;">
+            <view class="grid col-3 bg-gray">
+              <view class="padding-sm">
+                <view class="radius text-center light">
+                  <view class="text-lg">重量</view>
+                  <view wx:if="{{iCase}}" class=" text-orange">50kg以下<text class="text-sm text-orange"></text></view>
+                  <view wx:else class=" text-orange">20kg以下<text class="text-sm text-orange"></text></view>
+                </view>
+              </view>
+              <view class="padding-sm">
+                <view class="radius text-center light">
+                  <view class="text-lg">体积</view>
+                  <view wx:if="{{iCase}}" class="text-green">40*40*60<text class="text-sm text-green"></text></view>
+                  <view wx:else class=" text-green">长边小于2m<text class="text-sm text-orange"></text></view>
+                </view>
+              </view>
+              <view class="padding-sm">
+                <view class="bg-white radius text-center light" bindtap="chooseICase">
+                  <view class="text-lg">智能箱</view>
+                  <view wx:if="{{iCase==0}}" class="text-red">否<text class="text-sm text-red"></text></view>
+                  <view wx:else class="text-green">是<text class="text-sm text-red"></text></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+    <view class="cu-card radius bg-white">
+      <view class="action text-xl solid-bottom padding-sm" data-id="0" bindtap="chooseAddress">
+        <view wx:if="{{!sourceAddress}}" class="text-blue">
+          <view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>从哪里取件
+        </view>
+        <view wx:if="{{sourceAddress}}" class="text-blue">
+          <view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>{{sourceAddress.name}}
+        </view>
+        <view wx:if="{{!sourceName}}" class="text-gray text-df margin-left">未填写联系人</view>
+        <view wx:if="{{sourceName}}" class="text-gray text-df margin-left">{{sourceName}} ({{sourceSex}})
+          {{sourcePhone}}
+        </view>
+      </view>
+      <view class="action text-xl solid-bottom padding-sm" data-id="1" bindtap="chooseDestinAddress">
+        <view wx:if="{{!destinAddress}}" class="text-red">
+          <view class="cu-avatar sm round margin-left margin-right bg-red">送</view>送到哪里去
+        </view>
+        <view wx:if="{{destinAddress}}" class="text-red">
+          <view class="cu-avatar sm round margin-left margin-right bg-red">送</view>{{destinAddress.name}}
+        </view>
+        <view wx:if="{{!destinName}}" class="text-gray text-df margin-left">未填写联系人</view>
+        <view wx:if="{{destinName}}" class="text-gray text-df margin-left">{{destinName}} ({{destinSex}})
+          {{destinPhone}}
+        </view>
+      </view>
+      <view class="cu-form-group flex">
+        <view class="title">用车时间</view>
+        <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange"
+          value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="picker">
+            {{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
+          </view>
+        </picker>
+        <view class="cu-card radius margin-top-sm margin-bottom-sm shadow bg-GongyouBlue padding"
+          bindtap="freightDemandSubmit">需求发布</view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{identity==1}}">
+    <view class="cu-card bg-white radius shadow">
+      <view class="cu-card radius bg-white">
+        <view class="action text-xl solid-bottom padding-sm" data-id="0">
+          <view wx:if="{{!shunFengCarSourceAddress}}" class="text-blue" bindtap="chooseSourceAddressShunFengCar">
+            <view class="cu-avatar sm round margin-left margin-right bg-blue">发</view>从哪里出发
+          </view>
+          <view wx:if="{{shunFengCarSourceAddress}}" class="text-blue">
+            <view class="cu-avatar sm round margin-left margin-right bg-blue">发</view>{{shunFengCarSourceAddress.name}}
+          </view>
+        </view>
+        <view class="action text-xl solid-bottom padding-sm" data-id="1">
+          <view wx:if="{{!shunFengCarDestinAddress}}" class="text-red" bindtap="chooseDestinAddressShunFengCar">
+            <view class="cu-avatar sm round margin-left margin-right bg-red">到</view>你要去哪儿
+          </view>
+          <view wx:if="{{shunFengCarDestinAddress}}" class="text-red">
+            <view class="cu-avatar sm round margin-left margin-right bg-red">到</view>{{shunFengCarDestinAddress.name}}
+          </view>
+        </view>
+        <view class="cu-form-group flex">
+          <view class="title">发车时间</view>
+          <picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange"
+            value="{{multiIndex}}" range="{{multiArray}}">
+            <view class="picker">
+              {{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}
+            </view>
+          </picker>
+          <view class="cu-card radius margin-top-sm margin-bottom-sm shadow bg-GongyouBlue padding">发布顺风车</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+</view>
+
+<view class="cu-card margin radius shadow" style="height: 180rpx;">
+  <view class="grid col-4">
+    <view class="padding-sm">
+      <view class="radius text-center light" bindtap="toMyOrder">
+        <image class="" style="height: 80rpx;width:80rpx;" mode="aspectFit" src="/images/myOrder.png"></image>
+        <view class="text">我的订单</view>
+      </view>
+    </view>
+    <view class="padding-sm">
+      <view class="radius text-center light" bindtap="toCrowdSourcing">
+        <image class="" style="height: 80rpx;width:80rpx;" mode="aspectFit" src="/images/iAmCourier.png"></image>
+        <view class="text">我要接单</view>
+      </view>
+    </view>
+    <view class="padding-sm">
+      <view class="radius text-center light" bindtap="toBusLine">
+        <image class="" style="height: 80rpx;width:80rpx;" mode="aspectFit" src="/images/busLine.png"></image>
+        <view class="text">公交专线</view>
+      </view>
+    </view>
+    <view class="padding-sm">
+      <view class="radius text-center light" bindtap="toMobileMarket">
+        <image class="" style="height: 80rpx;width:80rpx;" mode="aspectFit" src="/images/mobileMarket.png"></image>
+        <view class="text">移动市场</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='topTabSwiper'>
+  <view class='tab text {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>我发布的</view>
+  <view class='tab text {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>我接受的</view>
+  <view class='tab text {{currentData == 2 ? "tabBorer" : ""}}' data-current="2" bindtap='checkCurrent'>收件</view>
+  <view class='tab text {{currentData == 3 ? "tabBorer" : ""}}' data-current="3" bindtap='checkCurrent'>寄件</view>
+</view>
+
+<swiper current="{{currentData}}" class='swiper bg-GongyouGray' style="height:600rpx;" duration="300"
+  bindchange="bindchange">
+  <swiper-item class='cu-card bg-GongyouGray'>
+    <block wx:if="{{queryresult0}}" wx:for="{{queryresult0}}" data-item="item" wx:for-index="idx">
+      <view class="margin bg-white shadow radius padding" bindtap='onTapOrder' data-_id='{{item._id}}'
+        data-destinAddress='{{item.destinAddress}}' data-destinAddressDetail='{{item.destinAddressDetail}}'
+        data-destinName='{{item.destinName}}' data-destinPhone='{{item.destinPhone}}'
+        data-destinSex='{{item.destinSex}}' data-iCase='{{item.iCase}}' data-sourceAddress='{{item.sourceAddress}}'
+        data-sourceAddressDetail='{{item.sourceAddressDetail}}' data-sourceName='{{item.sourceName}}'
+        data-sourcePhone='{{item.sourcePhone}}' data-sourceSex='{{item.sourceSex}}' data-type='{{item.type}}'
+        data-userinfo='{{item.userinfo}}' data-y='{{item.y}}' data-m='{{item.m}}' data-d='{{item.d}}'
+        data-h='{{item.h}}' data-mm='{{item.mm}}' data-time='{{item.time}}' data-state='{{item.state}}'
+        data-_openid='{{item._openid}}' data-taskRecipientOpenid="{{item.taskRecipientOpenid}}" data-taskRecipientUserInfoName="{{item.taskRecipientUserInfoName}}"
+        data-taskRecipientUserInfoPhone="{{item.taskRecipientUserInfoPhone}}" data-taskReceivedTime="{{item.taskReceivedTime}}"
+        data-taskFinishTime="{{item.taskFinishTime}}">
+
+        <view class="flex justify-between margin-left margin-right margin-bottom-xs">
+          <view>
+            <view wx:if="{{item.type==0}}" class="cu-tag bg-blue">汽车</view>
+            <view wx:if="{{item.type==1}}" class="cu-tag bg-cyan">电动车</view>
+            <view wx:if="{{item.type==2}}" class="cu-tag bg-green">人力</view>
+            <view wx:if="{{item.iCase==1}}" class="cu-tag bg-GongyouBlue">快递箱</view>
+          </view>
+
+          <view wx:if="{{item.state==0}}" class="cu-tag bg-blue">待接受</view>
+          <view wx:if="{{item.state==1}}" class="cu-tag bg-cyan">进行中</view>
+          <view wx:if="{{item.state==2}}" class="cu-tag bg-green">已完成</view>
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>{{item.sourceAddress.name}}
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-red">送</view>{{item.destinAddress.name}}
+        </view>
+        <view class="text-gray text-df text-right">
+
+          预期运输时间：{{item.y}}年{{item.m}}月{{item.d}}日{{item.h}}时{{item.mm}}分
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{queryresult0==''||queryresult0==null}}">
+      <view class='swiper_no'>
+        <image style="width:200rpx; height:200rpx" src="/images/empty1.png"></image>
+        <text>还没有订单记录哦……</text>
+      </view>
+    </view>
+    <view class='margin text-center' style='font-size:14px; color:rgb(102, 87, 238);' bindtap='toMyOrder'>
+      点击查看更多包裹 >
+    </view>
+  </swiper-item>
+  <swiper-item class='cu-card bg-GongyouGray'>
+    <block wx:for="{{queryresult1}}" data-item="item" wx:for-index="idx">
+      <view class="margin bg-white shadow radius padding" bindtap='onTapOrder' data-_id='{{item._id}}'
+        data-destinAddress='{{item.destinAddress}}' data-destinAddressDetail='{{item.destinAddressDetail}}'
+        data-destinName='{{item.destinName}}' data-destinPhone='{{item.destinPhone}}'
+        data-destinSex='{{item.destinSex}}' data-iCase='{{item.iCase}}' data-sourceAddress='{{item.sourceAddress}}'
+        data-sourceAddressDetail='{{item.sourceAddressDetail}}' data-sourceName='{{item.sourceName}}'
+        data-sourcePhone='{{item.sourcePhone}}' data-sourceSex='{{item.sourceSex}}' data-type='{{item.type}}'
+        data-userinfo='{{item.userinfo}}' data-y='{{item.y}}' data-m='{{item.m}}' data-d='{{item.d}}'
+        data-h='{{item.h}}' data-mm='{{item.mm}}' data-time='{{item.time}}' data-state='{{item.state}}'
+        data-_openid='{{item._openid}}' data-taskRecipientOpenid="{{item.taskRecipientOpenid}}" data-taskRecipientUserInfoName="{{item.taskRecipientUserInfoName}}"
+        data-taskRecipientUserInfoPhone="{{item.taskRecipientUserInfoPhone}}" data-taskReceivedTime="{{item.taskReceivedTime}}"
+        data-taskFinishTime="{{item.taskFinishTime}}">
+        <view class="flex justify-between margin-left margin-right margin-bottom-xs">
+          <view>
+            <view wx:if="{{item.type==0}}" class="cu-tag bg-blue">汽车</view>
+            <view wx:if="{{item.type==1}}" class="cu-tag bg-cyan">电动车</view>
+            <view wx:if="{{item.type==2}}" class="cu-tag bg-green">人力</view>
+            <view wx:if="{{item.iCase==1}}" class="cu-tag bg-GongyouBlue">快递箱</view>
+          </view>
+
+          <view wx:if="{{item.state==0}}" class="cu-tag bg-blue">待接受</view>
+          <view wx:if="{{item.state==1}}" class="cu-tag bg-cyan">进行中</view>
+          <view wx:if="{{item.state==2}}" class="cu-tag bg-green">已完成</view>
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>{{item.sourceAddress.name}}
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-red">送</view>{{item.destinAddress.name}}
+        </view>
+        <view class="text-gray text-df text-right">
+          预期运输时间：{{item.y}}年{{item.m}}月{{item.d}}日{{item.h}}时{{item.mm}}分
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{queryresult1==''||queryresult1==null}}">
+      <view class='swiper_no'>
+        <image style="width:200rpx; height:200rpx" src="/images/empty1.png"></image>
+        <text>还没有订单记录哦……</text>
+      </view>
+    </view>
+    <view class='margin text-center' style='font-size:14px; color:rgb(102, 87, 238);' bindtap='toMyOrder'>
+      点击查看更多包裹 >
+    </view>
+  </swiper-item>
+  <swiper-item class='cu-card bg-GongyouGray'>
+    <!-- <view class="cu-item bg-white margin radius">
+      <view class="action margin">
+        <text class="cuIcon-title text-blue"></text>客官您好，能为您做些什么呢？
+      </view>
+      <view class="cu-card flex">
+        <view class="flex-sub bg-GongyouBlue cu-item shadow" bindtap="toSendTask">
+          <view class="padding radius text-center">
+            <view class="text-lg">送货</view>
+          </view>
+        </view>
+        <view class="flex-sub bg-GongyouBlue cu-item shadow" bindtap="toCollectTask">
+          <view class="padding radius text-center">
+            <view class="text-lg">取件</view>
+          </view>
+        </view>
+      </view>
+    </view> -->
+    <!-- <view class="action margin padding cu-item radius bg-white">
+      <text class="cuIcon-title text-blue"></text>运输中
+    </view> -->
+    <view class='swiper_no'>
+      <image style="width:200rpx; height:200rpx" src="/images/empty1.png"></image>
+      <text>还没有订单记录哦……</text>
+    </view>
+
+    <view wx:wlse class='cu-item bg-white margin radius'>
+
+      <view wx:for="{{taskICreate}}" wx:key>
+        <navigator
+          url="/pages/task/taskDetail/taskDetail?createdAt={{item.createdAt}}&deliveryLocation={{item.deliveryLocation}}&description={{item.description}}&payMethod={{item.payMethod}}&pickupLocation={{item.pickupLocation}}&price={{item.price}}&weight={{item.weight}}&senderUsername={{item.sender.username}}&senderPhone={{item.sender.phone}}&senderNickname={{item.sender.nickname}}&id={{item.id}}"
+          hover-class="none">
+          <view class='cu-item bg-white margin radius'>
+            <view class="flex">
+              <view class="margin">
+                <image style="width:150rpx; height:150rpx; border-radius: 12%;" src="/images/box.png"></image>
+                <view class="margin cu-tag bg-GongyouBlue">{{item.taskState}}</view>
+              </view>
+              <view class="margin">
+                <!-- <view>{{item.status}}</view> -->
+                <view>{{item.description}}</view>
+                <view>取货地：{{item.pickupLocation}}</view>
+                <view>送至：{{item.deliveryLocation}}</view>
+                <view wx:if="{{item.eta}}">期望在{{item.eta}}之前完成</view>
+                <view wx:if="{{item.price}}"><text class="text-price text-red text-xl">{{item.price}}</text>小费</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+
+    <!-- <view class='margin text-center' style='font-size:14px; color:rgb(102, 87, 238);' bindtap='toList'>
+      点击查看更多包裹 >
+    </view> -->
+
+  </swiper-item>
+
+
+  <swiper-item class='cu-card bg-GongyouGray'>
+    <!-- <view class="action bg-white padding">
+      <text class="cuIcon-title text-blue text-xl"></text>任务列表
+    </view> -->
+    <!-- <view class="action margin padding cu-item radius bg-white">
+      <text class="cuIcon-title text-blue"></text>运输中
+    </view> -->
+    <view class='swiper_no'>
+      <image style="width:200rpx; height:200rpx" src="/images/empty1.png"></image>
+      <text>还没有订单记录哦……</text>
+    </view>
+    <view wx:for="{{taskAcceptable}}" wx:key>
+      <navigator
+        url="/pages/task/taskDetail/taskDetail?createdAt={{item.createdAt}}&deliveryLocation={{item.deliveryLocation}}&description={{item.description}}&payMethod={{item.payMethod}}&pickupLocation={{item.pickupLocation}}&price={{item.price}}&weight={{item.weight}}&senderUsername={{item.sender.username}}&senderPhone={{item.sender.phone}}&senderNickname={{item.sender.nickname}}&id={{item.id}}"
+        hover-class="none">
+        <view class='cu-item bg-white margin radius'>
+          <view class="flex">
+            <view class="margin">
+              <image style="width:150rpx; height:150rpx; border-radius: 12%;" src="/images/box.png"></image>
+            </view>
+            <view class="margin">
+              <!-- <view>{{item.status}}</view> -->
+              <view>{{item.description}}</view>
+              <view>取货地：{{item.pickupLocation}}</view>
+              <view>送至：{{item.deliveryLocation}}</view>
+              <view wx:if="{{item.eta}}">期望在{{item.eta}}之前完成</view>
+              <view wx:if="{{item.price}}"><text class="text-price text-red text-xl">{{item.price}}</text>小费</view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <!-- <view wx:if="{{picList.length === 0}}" class='swiper_no'>
+      <image style="width:400rpx; height:400rpx" src="/images/empty2.png"></image>
+      <text>还没有送件记录哦……</text>
+    </view>
+
+    <view wx:if="{{recList.length !== 0}}" class='swiper_yes' bindtap='toList0'>
+      <view>
+        <image style="width:150rpx; height:150rpx; border-radius: 12%;" src="/images/box.png"></image>
+      </view>
+      <view style="margin-left: 20rpx; display: flex; flex-direction: column;">
+        <text>{{picList[0].status}}</text>
+        <text class='add'>目的地：{{picList[0].recAddress}}</text>
+        <text wx:if="{{recList[0].time}}">{{picList[0].time}}时送达</text>
+      </view>
+    </view> -->
+
+    <!-- <view class='margin text-center' style='font-size:14px; color:rgb(102, 87, 238);' bindtap='toList'>
+      点击查看更多订单 >
+    </view> -->
+  </swiper-item>
+
+</swiper>
+<!-- <image style="width:750rpx; height:130rpx; margin-bottom:0px;" src='/images/und.png'></image> -->
+<!-- 底部tabbar -->
+<view class="cu-bar tabbar bg-white radius">
+  <view class="action text-blue">
+    <view class="cuIcon-homefill"></view> 首页
+  </view>
+  <view class="action text-gray add-action">
+    <button class="cu-btn cuIcon-scan bg-GongyouBlue shadow" bindtap="scanCode"></button>
+    扫码
+  </view>
+  <view class="action text-gray" bindtap="toUser">
+    <view class="cuIcon-my">
+    </view>
+    我的
+  </view>
+</view>
+<!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+  <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+  <view class='gray-text'>刷新中...</view>
+</view>

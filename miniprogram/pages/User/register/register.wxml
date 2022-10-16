@@ -1,0 +1,40 @@
+<!--miniprogram/pages/me/register/register.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">注册公邮账号</view>
+</cu-custom>
+<view class='margin bg-white padding-xl radius shadow-lg'>
+	<form class="text-center padding-xl">
+		<view class="cu-form-group">
+			<view class="title">用户名</view>
+			<input placeholder="请输入用户名" bindinput='usernameInput'></input>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">密码</view>
+			<input placeholder="请输入密码" bindinput='codeInput'></input>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">密码</view>
+			<input placeholder="请再次输入密码" bindinput='codeInputAgain'></input>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">昵称</view>
+			<input placeholder="请输入昵称" bindinput='nicknameInput'></input>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">手机</view>
+			<input placeholder="请输入手机号" maxlength="11" bindinput='phoneInput'></input>
+		</view>
+
+		<view class="cu-bar btn-group margin-top-xl">
+			<button class="cu-btn block bg-GongyouBlue margin-top lg" bindtap="submit">提交</button>
+		</view>
+	</form>
+</view>
+
+<!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+	<!-- <view class='cuIcon-emojifill text-orange'></view> -->
+	<image src='/images/logo.png' class='png' mode='aspectFit'></image>
+	<view class='gray-text'>注册中...</view>
+</view>

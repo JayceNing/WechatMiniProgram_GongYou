@@ -1,0 +1,59 @@
+<!--pages/MyTasks/myTasks.wxml-->
+<cu-custom bgColor="bg-GongyouBlue">
+  <view slot="content">公邮</view>
+</cu-custom>
+<view class='topTabSwiper'>
+  <view class='tab  {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>我发布的</view>
+  <view class='tab  {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>我接受的</view>
+</view>
+<swiper current="{{currentData}}" class='swiper bg-GongyouGray' style="height:{{swiperHeight}}rpx;" duration="300"
+  bindchange="bindchange">
+  <swiper-item class='cu-card bg-GongyouGray'>
+    <view wx:if="{{currentData==0}}" wx:for="{{ICreate}}" wx:key>
+      <navigator
+        url="/pages/task/taskDetail/taskDetail?createdAt={{item.createdAt}}&deliveryLocation={{item.deliveryLocation}}&description={{item.description}}&payMethod={{item.payMethod}}&pickupLocation={{item.pickupLocation}}&price={{item.price}}&weight={{item.weight}}&senderUsername={{item.sender.username}}&senderPhone={{item.sender.phone}}&senderNickname={{item.sender.nickname}}&id={{item.id}}&receiverUsername={{item.receiver.username}}"
+        hover-class="none">
+        <view class='cu-item bg-white margin radius'>
+          <view class="flex">
+            <view class="margin">
+              <image style="width:150rpx; height:150rpx; border-radius: 12%;" src="/images/box.png"></image>
+              <view class="margin cu-tag bg-GongyouBlue">{{item.taskState}}</view>
+            </view>
+            <view class="margin">
+              <!-- <view>{{item.status}}</view> -->
+              <view>{{item.description}}</view>
+              <view>取货地：{{item.pickupLocation}}</view>
+              <view>送至：{{item.deliveryLocation}}</view>
+              <view wx:if="{{item.eta}}">期望在{{item.eta}}之前完成</view>
+              <view wx:if="{{item.price}}"><text class="text-price text-red text-xl">{{item.price}}</text>小费</view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </swiper-item>
+
+  <swiper-item class='cu-card bg-GongyouGray'>
+    <view wx:if="{{currentData==1}}" wx:for="{{IAccept}}" wx:key>
+      <navigator
+        url="/pages/task/taskDetail/taskDetail?createdAt={{item.createdAt}}&deliveryLocation={{item.deliveryLocation}}&description={{item.description}}&payMethod={{item.payMethod}}&pickupLocation={{item.pickupLocation}}&price={{item.price}}&weight={{item.weight}}&senderUsername={{item.sender.username}}&senderPhone={{item.sender.phone}}&senderNickname={{item.sender.nickname}}&id={{item.id}}&receiverUsername={{item.receiver.username}}"
+        hover-class="none">
+        <view class='cu-item bg-white margin radius'>
+          <view class="flex">
+            <view class="margin">
+              <image style="width:150rpx; height:150rpx; border-radius: 12%;" src="/images/box.png"></image>
+            </view>
+            <view class="margin">
+              <!-- <view>{{item.status}}</view> -->
+              <view>{{item.description}}</view>
+              <view>取货地：{{item.pickupLocation}}</view>
+              <view>送至：{{item.deliveryLocation}}</view>
+              <view wx:if="{{item.eta}}">期望在{{item.eta}}之前完成</view>
+              <view wx:if="{{item.price}}"><text class="text-price text-red text-xl">{{item.price}}</text>小费</view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </swiper-item>
+</swiper>

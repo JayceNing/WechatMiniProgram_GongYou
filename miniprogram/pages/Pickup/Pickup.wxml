@@ -1,0 +1,174 @@
+<!--pages/Despatch/Despatch.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">公交专线</view>
+</cu-custom>
+<block wx:if="{{city==0}}">
+  <view class="cu-bar bg-GongyouBlue search">
+    <view class="action">
+      <picker bindchange="PickerChange" value="{{city}}" range="{{picker}}">
+        <view class="picker">
+          {{city?picker[city]:'城市'}}
+        </view>
+      </picker>
+      <text class="cuIcon-triangledownfill"></text>
+    </view>
+    <view class="search-form radius">
+      <text class="cuIcon-search"></text>
+      <input type="text" placeholder="搜索站点名称" confirm-type="search"></input>
+    </view>
+    <view class="action">
+      <button class="cu-btn bg-green shadow-blur round" style="width: fit-content;">搜索</button>
+    </view>
+  </view>
+  <view class="cu-card radius margin bg-white shadow">
+    <map class="map" id="hgmap" markers="{{hgMarkers}}" min-scale="{{minScale}}" max-scale="{{maxScale}}"
+      latitude="{{hglocation.latitude}}" longitude="{{hglocation.longitude}}" scale="{{hgscale}}" setting="{{setting}}"
+      enable-overlooking="{{isOverLooking}}" enable-3D="{{is3D}}" show-compass="{{isShowCompass}}"
+      show-scale="{{isShowScale}}" polygons="{{polygon}}" polyline="{{hgpolyline}}" bindmarkertap="onTapMarker"
+      style="height:800rpx">
+      <cover-view slot="callout">
+        <block wx:for="{{hgMarkers}}" wx:key="*this">
+          <cover-view marker-id="{{item.id}}">
+            <cover-view class='padding bg-white radius shadow-lg'>
+              <cover-view class='text-content'>
+                <cover-view>{{item.title}}</cover-view>
+              </cover-view>
+            </cover-view>
+          </cover-view>
+        </block>
+      </cover-view>
+    </map>
+    <view class="cu-bar bg-white solid-bottom margin-top">
+      <view class="action">
+        <text class="cuIcon-title text-blue"></text>公交实时位置
+      </view>
+    </view>
+    <view class="cu-bar bg-white solid-bottom margin-top">
+      <view class="action">
+        <text class="text-blue"></text>东向公交
+      </view>
+    </view>
+    <scroll-view scroll-x class="bg-white padding response cu-steps steps-bottom"
+      scroll-into-view="scroll-{{toEastScroll}}" scroll-with-animation>
+      <view class="cu-item {{index>toEastScroll?'':'text-blue'}} padding-lr-xl" wx:for="{{toEastList}}" wx:key
+        id="scroll-{{index}}">
+        {{toEastList[index].name}}<text class="num" data-index="{{index + 1}}"></text>
+      </view>
+    </scroll-view>
+    <view class="cu-bar bg-white solid-bottom margin-top">
+      <view class="action">
+        <text class="text-blue"></text>西向公交
+      </view>
+    </view>
+    <scroll-view scroll-x class="bg-white padding response cu-steps steps-bottom"
+      scroll-into-view="scroll-{{toWestScroll}}" scroll-with-animation>
+      <view class="cu-item {{index>toWestScroll?'':'text-blue'}} padding-lr-xl" wx:for="{{toEastList}}" wx:key
+        id="scroll-{{index}}">
+        {{toWestList[index].name}}<text class="num" data-index="{{index + 1}}"></text>
+      </view>
+    </scroll-view>
+  </view>
+</block>
+<block wx:if="{{city==1}}">
+  <view class="map" style="--screenHeight--: {{screenHeight}}px">
+    <map class="map" id="map" markers="{{markers}}" min-scale="{{minScale}}" max-scale="{{maxScale}}"
+      latitude="{{location.latitude}}" longitude="{{location.longitude}}" scale="{{scale}}" setting="{{setting}}"
+      enable-overlooking="{{isOverLooking}}" enable-3D="{{is3D}}" show-compass="{{isShowCompass}}"
+      show-scale="{{isShowScale}}" polygons="{{polygon}}" polyline="{{polyline}}" bindmarkertap="onTapMarker"
+      style="--screenHeight--: {{screenHeight}}px">
+      <cover-view slot="callout">
+        <block wx:for="{{markers}}" wx:key="*this">
+          <cover-view marker-id="{{item.id}}">
+            <cover-view class='padding bg-white radius shadow-lg'>
+              <cover-view class='text-content'>
+                <cover-view>名称：{{item.title}}</cover-view>
+              </cover-view>
+            </cover-view>
+          </cover-view>
+        </block>
+      </cover-view>
+    </map>
+  </view>
+
+  <view>
+    <view wx:if="{{busLine}}" class="scanCode cu-btn block bg-GongyouBlue"
+      style="--ScreenHeight80Percent--: {{ScreenHeight80Percent}}px" bindtap="scanQRCode">扫码开箱</view>
+    <view wx:if="{{busLine}}" class="checkPackage cu-btn block bg-green"
+      style="--ScreenHeight90Percent--: {{ScreenHeight90Percent}}px" bindtap="toBoxDetail">箱中包裹</view>
+    <view class="busLine bg-white cu-card flex" style="--ScreenHeight15Percent--: {{ScreenHeight15Percent}}px">
+      <view class="action flex margin">
+        <picker bindchange="PickerChange" value="{{city}}" range="{{picker}}">
+          <view class="picker">
+            {{city?picker[city]:'城市'}}
+          </view>
+        </picker>
+        <text class="cuIcon-triangledownfill"></text>
+      </view>
+      <view wx:if="{{!busLine}}" class="margin">当前显示全部线路</view>
+      <view wx:else class="margin"><text class="text-xl text-orange">{{busLine}}</text></view>
+      <view class="margin cu-btn radius bg-GongyouBlue" bindtap="showModal" data-target="bottomModal">线路切换</view>
+    </view>
+  </view>
+
+  <!-- 底部弹窗 -->
+  <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white">
+        <view class="action text-green"></view>
+        <view class="action text-blue" bindtap="hideModal">关闭</view>
+      </view>
+      <view class="">
+        <view class="cu-card">
+          <view class="cu-item radius margin bg-GongyouGray">
+            <view wx:for="{{busLineList}}" wx:key>
+              <view class='cu-item bg-white margin radius' data-id="{{item.id}}" bindtap="lineChange">
+                <view class="flex">
+                  <view class="margin">
+                    <view wx:if="{{item.lineName=='公邮1号'}}" class="margin cu-tag bg-green">{{item.lineName}}</view>
+                    <view wx:if="{{item.lineName=='公邮2号'}}" class="margin cu-tag bg-GongyouBlue">{{item.lineName}}
+                    </view>
+                    <view wx:if="{{item.lineName=='公邮3号'}}" class="margin cu-tag bg-red">{{item.lineName}}</view>
+                  </view>
+                  <view class="margin">
+                    <!-- <view>{{item.status}}</view> -->
+                    <view>
+                      <image src="/images/center.png" class="png" mode="aspectFit" style="height:40rpx;width:40rpx;">
+                      </image>{{item.lineDetail}}<image src="/images/school.png" class="png" mode="aspectFit"
+                        style="height:40rpx;width:40rpx;"></image>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>
+<!-- 底部窗口 -->
+
+<view class="cu-modal bottom-modal {{modalName=='stationDetail'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white">
+
+      <view class="action text-blue" bindtap="hideModal">取消</view>
+    </view>
+    <view class="padding-sm">
+      地点：{{modalContent}}
+    </view>
+    <view wx:if="{{modalContent!='公交车'}}" class="margin-top-sm margin-bottom">
+      东向快递：{{toEast}}
+    </view>
+    <view wx:if="{{modalContent!='公交车'}}" class="margin-top-sm margin-bottom">
+      西向快递：{{toWest}}
+    </view>
+  </view>
+</view>
+<!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+  <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+  <view class='gray-text'>开箱中...</view>
+</view>

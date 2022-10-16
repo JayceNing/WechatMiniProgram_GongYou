@@ -1,0 +1,26 @@
+<!--pages/busTask/busTask.wxml-->
+<cu-custom bgColor="bg-GongyouBlue">
+	<view slot="content">公邮</view>
+</cu-custom>
+<view class="cu-card">
+  <view class="cu-item radius margin bg-white">
+    <view wx:for="{{deviceList}}" wx:key>
+        <navigator
+          url="/pages/Pickup/Pickup?id={{item.id}}"
+          hover-class="none">
+          <view class='cu-item bg-white margin radius'>
+            <view class="flex">
+              <view class="margin">
+                <image style="width:150rpx; height:150rpx; border-radius: 12%;" src="/images/box.png"></image>
+                <view class="margin cu-tag bg-GongyouBlue">公交专线</view>
+              </view>
+              <view class="margin">
+                <!-- <view>{{item.status}}</view> -->
+                <view>线路id：{{item.id}}</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+  </view>
+</view>

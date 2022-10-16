@@ -1,0 +1,47 @@
+/* pages/User/User.wxss */
+
+.user {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 50rpx;
+  margin-bottom: 10rpx;
+  color: rgb(27, 27, 27);
+}
+
+.userinfo-avatar {
+  overflow: hidden;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  border: 8rpx solid #4169E1
+}
+
+.detail {
+  display:flex;
+  flex-direction: column;
+  background-color: rgb(245, 245, 245);
+  margin-top: 100rpx;
+  height: 300rpx;
+}
+.detail_ {
+  display:flex;
+  flex-direction: column;
+  margin:auto;
+}
+
+.body {
+  margin: 12rpx 0rpx 10rpx 30rpx
+}
+
+.tabbar{
+  position: fixed;
+  width:100%;
+  bottom:0;
+}

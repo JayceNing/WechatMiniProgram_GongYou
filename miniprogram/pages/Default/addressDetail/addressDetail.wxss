@@ -1,0 +1,9 @@
+/* pages/Default/addressDetail/addressDetail.wxss */
+page{
+  background-color:  rgb(245, 245, 245);
+}
+.map {
+  width:100%;
+  height:var(--mapHeight--);
+  position: relative;
+}

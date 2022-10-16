@@ -1,0 +1,25 @@
+<!--miniprogram/pages/me/bindAccount/bindAccount.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">绑定公邮账号</view></cu-custom>
+<view>
+  <image style="width:750rpx; height:309rpx" lazy-load='true' src="/images/banner.png"></image>
+</view>
+<form class="text-center">
+  <view class="cu-form-group margin-left-lg margin-right-lg">
+    <view class="title">用户名</view>
+    <input placeholder="请输入用户名" bindinput='usernameInput' value="{{username}}"></input>
+  </view>
+  <view class="cu-form-group margin-left-lg margin-right-lg">
+    <view class="title">密码</view>
+    <input placeholder="请输入密码" bindinput='passwordInput' value="{{password}}"></input>
+  </view>
+</form>
+<button class="cu-btn block bg-blue margin-top lg" bindtap="bindAccount">登录</button>
+<button class="cu-btn block bg-blue light margin-top lg" bindtap="toRegister">注册</button>
+<button class="cu-btn block bg-gray light margin-top lg" bindtap="testAccount">测试账号</button>
+
+<!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+	<!-- <view class='cuIcon-emojifill text-orange'></view> -->
+	<image src='/images/logo.png' class='png' mode='aspectFit'></image>
+	<view class='gray-text'>登录中...</view>
+</view>

@@ -1,0 +1,63 @@
+<!--pages/Default/addressDetail/addressDetail.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view wx:if="{{task==0}}" slot="content">取件地址</view>
+  <view wx:if="{{task==1}}" slot="content">送件地址</view>
+</cu-custom>
+<view class="cu-card">
+  <view class="cu-item radius margin bg-white">
+    <view class="map cu-card radius" style="--mapHeight--:{{mapHeight}}rpx">
+      <map class="map" id="map" markers="{{markers}}" min-scale="{{minScale}}" max-scale="{{maxScale}}"
+        latitude="{{location.latitude}}" longitude="{{location.longitude}}" scale="{{scale}}" setting="{{setting}}"
+        enable-overlooking="{{isOverLooking}}" enable-3D="{{is3D}}" show-compass="{{isShowCompass}}"
+        show-scale="{{isShowScale}}" polygons="{{polygon}}" polyline="{{polyline}}" bindmarkertap="onTapMarker"
+        style="--screenHeight--: {{screenHeight}}px">
+        <cover-image class="radius bg-white padding-sm shadow" style="width:50rpx; height:50rpx" src="/images/focus.png"
+          bindtap="tapGetLocation"></cover-image>
+      </map>
+    </view>
+    <view class="cu-form-group" bindtap="chooseAddress">
+      <view class="title">地址选择</view>
+      {{chooseAddress.name}}
+      <!-- <picker mode="region" bindchange="RegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          {{region[0]}}，{{region[1]}}，{{region[2]}}
+        </view>
+      </picker> -->
+    </view>
+    <view class="cu-form-group">
+      <view class="title">地址备注</view>
+      <input placeholder="楼层、门牌号、店名等" bindinput='addressDetailInput'>{{addressDetail}}</input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">联系人</view>
+      <input placeholder="姓名" bindinput='nameInput'>{{name}}</input>
+      <view>
+        <radio-group class="block">
+          <radio class="blue radio margin-sm" data-id="先生" bindtap="sexChange" checked></radio>先生
+          <radio class="blue radio margin-sm" data-id="女士" bindtap="sexChange"></radio>女士
+        </radio-group>
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">手机</view>
+      <input placeholder="请输入手机号" maxlength="11" bindinput='phoneInput'></input>
+    </view>
+    <view class="cu-bar btn-group margin">
+      <button class="cu-btn block bg-GongyouBlue margin-top lg" bindtap="submit">确定</button>
+    </view>
+  </view>
+
+  <view class="cu-item radius margin bg-white">
+    <view class="action margin">
+      <text class="cuIcon-title text-blue"></text>常用地址
+    </view>
+  </view>
+  <block wx:for="{{queryresult}}" data-item="item" wx:for-index="idx">
+    <view class="margin cu-item bg-white shadow radius padding" bindtap='onTapAddressSave' data-_id='{{item._id}}' data-chooseAddress='{{item.chooseAddress}}' data-addressDetail='{{item.addressDetail}}' data-name='{{item.name}}' data-sex='{{item.sex}}' data-phone='{{item.phone}}'>
+      <view class="text-gray text-lg">{{item.chooseAddress.address}} {{item.chooseAddress.name}}</view>
+      <view>{{item.addressDetail}}</view>
+      <view class="text-gray text-df">{{item.name}}({{item.sex}}) {{item.phone}}</view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,20 @@
+<!--pages/Detail/Detail.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view wx:if="{{mid==0}}" slot="content">我的快件</view>
+  <view wx:if="{{mid==1}}" slot="content">送件记录</view>
+</cu-custom>
+<view class="box">
+  <view class="head">
+    <view >快件单号：{{list[id].num}}</view>
+    <view class='status  {{item.status=="派送中" | item.status=="待派送" ? "statusPlus" : ""}}'>{{list[id].status}}</view>
+  </view>
+  <view class="line"></view>
+  <image class="img" src="/images/box.png"></image>
+  <view class="address">
+     <view>发货地址：{{list[id].picAddress}}</view>
+     <view>收货地址：{{list[id].recAddress}}</view>
+    </view>
+  <view style="margin-bottom:5px;" wx:if="{{item.status=='待派送'}}">收件人：{{list[id].guest}}</view>
+  <view class="guest" wx:if="{{item.time}}">{{list[id].guest}} 于 {{list[id].time}} 签收</view>
+</view>

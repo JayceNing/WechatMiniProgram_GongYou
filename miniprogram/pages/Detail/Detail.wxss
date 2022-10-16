@@ -1,0 +1,31 @@
+/* pages/Detail/Detail.wxss */
+page {
+  background-color: rgb(240, 240, 240);
+}
+
+.box {
+  background-color: rgb(255, 255, 255);
+  margin: 20rpx 40rpx 10rpx 40rpx;
+  border-radius: 20rpx;
+  padding: 20rpx 50rpx 20rpx 50rpx;
+  height: 800rpx;
+  font-size:14px;
+}
+
+.address {
+  font-size: 15px;
+  margin: 20rpx 0rpx 0rpx 0rpx;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  color: rgb(100, 100, 100);
+  margin: 5px 0px 5px 0px;
+}
+
+.img {
+  width:200rpx;
+  height:200rpx;
+  border-radius: 12%;
+}

@@ -1,0 +1,42 @@
+<!--pages/task/taskDetail/taskDetail.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">任务详情</view>
+</cu-custom>
+
+<view class="cu-card">
+	<view class="cu-item radius margin bg-white">
+		<view class="margin"><text class="text-xl">{{description}}</text></view>
+		<view class="margin">取件处：{{pickupLocation}}</view>
+		<view class="margin">送至：{{deliveryLocation}}</view>
+		<view class="margin">物品重量：{{weight}}</view>
+		<view class="margin">支付方式：{{payMethod}}</view>
+		<view class="margin">劳务费：<text class="text-price text-red text-xl">{{price}}</text></view>
+		<view class="margin">订单编号：{{id}}</view>
+		<view class="margin">下单人用户名：{{senderUsername}}</view>
+		<view class="margin">下单人帐号昵称：{{senderNickname}}</view>
+		<view class="margin">下单人手机号：{{senderPhone}}</view>
+	</view>
+</view>
+
+<view class="cu-bar bg-white tabbar border shop bottomBar">
+	<button class="action" open-type="contact">
+		<view class="cuIcon-service text-green">
+		</view>
+		客服
+	</button>
+	<view class="margin">
+		<text class="text-lg">预期收益：</text>
+		<text class="text-price text-red text-xl">{{price}}</text>
+	</view>
+
+	<view wx:if="{{receiverUsername}}" class="submit bg-GongyouBlue" bindtap="contactSender">联系发单人</view>
+	<view wx:else class="submit bg-GongyouBlue" bindtap="taskAccept">任务接受</view>
+</view>
+
+<!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+	<!-- <view class='cuIcon-emojifill text-orange'></view> -->
+	<image src='/images/logo.png' class='png' mode='aspectFit'></image>
+	<view class='gray-text'>提交中...</view>
+</view>

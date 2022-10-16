@@ -1,0 +1,56 @@
+<!--miniprogram/pages/shop/shop.wxml-->
+
+<!-- <swiper class="screen-swiper bg-white" autoplay="true" interval="5000" duration="500">
+  <swiper-item>
+    <image src="/images/tittle.png" mode='aspectFit'></image>
+  </swiper-item>
+</swiper> -->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">移动市场</view>
+</cu-custom>
+
+<!-- <view class="bg-img" style="background-image:url(http://m.qpic.cn/psc?/V51o6AfO138S3m3lNdc10hOSZE0Lke63/45NBuzDIW489QBoVep5mcXpZ0ezIPOB5lasqqFDNWLrgecFlUfFJF0Of.F8UZkrahQsUqK4u4umHz2bdhZn*Q2xWmSd4qpEBHzitgYZWaZA!/b&bo=1QVuAdUFbgEDGTw!&rf=viewer_4&t=5);height:190rpx"></view> -->
+
+
+<view class="VerticalBox">
+  <scroll-view class="VerticalNav nav margin-top-lg" scroll-y scroll-with-animation scroll-top="{{VerticalNavTop}}" style="height:calc(100vh - 200rpx)">
+    <view class="cu-item {{index==TabCur?'text-green cur':''}}" wx:for="{{list}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+      {{item.number}}
+    </view>
+  </scroll-view>
+  <scroll-view class="VerticalMain" scroll-y scroll-with-animation style="height:calc(100vh - 100rpx)" scroll-into-view="main-{{MainCur}}" bindscroll="VerticalMain">
+    <view class="padding-top padding-lr" wx:for="{{list}}" wx:key id="main-{{index}}">
+      <view class='cu-bar solid-bottom bg-white'>
+        <view class='action'><text class='cuIcon-title text-green'></text> {{item.name}} </view>
+      </view>
+      <view class="bg-white padding-xl shadow-lg">
+        <view class='text-content'>
+          <view class='margin-bottom'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.content}}</view>
+          <view class="bg-white">
+            <view class="grid col-2">
+              <view class="bg-img" wx:for="{{item.items}}">
+                <view class="bg-img margin-right" style="background-image:url({{item.pic}});height:200rpx"></view>
+                <view class='text-center'>{{item.describe}}</view>
+              </view> 
+            </view>
+          </view>
+          <view wx:if="{{item.content1}}" class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.content1}}</view>
+          <view wx:if="{{item.content2}}" class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.content2}}</view>
+          <view wx:if="{{item.content3}}" class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.content3}}</view>
+          <view wx:if="{{item.content4}}" class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.content4}}</view>
+          <view wx:if="{{item.content5}}" class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.content5}}</view>
+          <view wx:if="{{item.content6}}" class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.content6}}</view>
+          <view wx:if="{{item.content7}}" class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.content7}}</view>
+          <view wx:if="{{item.content8}}" class='margin-top-sm'><text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.content8}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="tab-bar-height bg-gray"></view>
+    <view class="tab-bar-height bg-gray"></view>
+    <view class="tab-bar-height bg-gray"></view>
+    <view class="tab-bar-height bg-gray"></view>
+    <view class="tab-bar-height bg-gray"></view>
+  </scroll-view>
+</view>
+<!-- <view class="tab-bar-height bg-gray"></view> -->

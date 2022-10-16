@@ -1,0 +1,22 @@
+/* pages/Pickup/boxDetail/boxDetail.wxss */
+page{
+  background-color:  rgb(245, 245, 245);
+}
+.scanCode{
+  position: fixed;
+  top: var(--ScreenHeight80Percent--);
+  height: 100rpx;
+  width: 300rpx;
+  left:30%;
+  border-radius: 10px;
+  
+}
+.checkPackage{
+  position: fixed;
+  top: var(--ScreenHeight90Percent--);
+  height: 100rpx;
+  width: 300rpx;
+  left:30%;
+  border-radius: 10px;
+  
+}

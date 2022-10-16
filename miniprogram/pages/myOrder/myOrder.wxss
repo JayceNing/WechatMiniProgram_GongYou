@@ -1,0 +1,27 @@
+/* pages/myOrder/myOrder.wxss */
+page{
+  background-color: rgb(245, 245, 245);
+}
+.tab {
+  float: left;
+  width: 33.3333%;
+  text-align: center;
+  padding: 10rpx 0;
+}
+
+.topTabSwiper {
+  border-top: 0px solid #ccc;
+  zoom: 1;
+}
+
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.tabBorer {
+  font-weight: 600;
+  border-bottom: 2.5px solid rgb(77, 61, 228);
+  color: rgb(78, 61, 228);
+}

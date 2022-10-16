@@ -1,0 +1,102 @@
+/* pages/Default/Default.wxss */
+
+.tab {
+  float: left;
+  width: 20%;
+  text-align: center;
+  padding: 10rpx 0;
+}
+
+.topTabSwiper {
+  border-top: 0px solid #ccc;
+  zoom: 1;
+}
+
+.topTabSwiper:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.tabBorer {
+  font-weight: 600;
+  border-bottom: 2.5px solid rgb(77, 61, 228);
+  color: rgb(78, 61, 228);
+}
+
+.swiper {
+  width: 100%;
+}
+
+.swipe-item {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  background-color: rgb(245, 245, 245);
+}
+
+.swiper_no {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  color: rgb(161, 161, 161);
+  font-size: 14px;
+}
+
+.swiper_yes {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+  padding-inline: 50rpx;
+  border-radius: 20rpx;
+  width: 80%;
+  height: 250rpx;
+}
+
+.add {
+  font-size:12px;
+  color:rgb(124, 124, 124);
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+/*  */
+
+.person_box {
+  position: relative;
+}
+
+.phone_select {
+  margin-top: 0;
+  z-index: 100;
+  position: absolute;
+}
+
+.select_one {
+  text-align: center;
+  background-color: rgb(239, 239, 239);
+  width: 676rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin: 0 5%;
+  border-bottom: 2rpx solid rgb(255, 255, 255);
+}
+
+.tabbar{
+  position: fixed;
+  width:100%;
+  bottom:0;
+}
+.map {
+  width:100%;
+  height:var(--mapHeight--);
+  position: relative;
+}
+.card-swiper {
+	height: 200rpx !important;
+}

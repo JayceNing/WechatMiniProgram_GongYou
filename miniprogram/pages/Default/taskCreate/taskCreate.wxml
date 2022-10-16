@@ -1,0 +1,103 @@
+<!--pages/Default/taskCreate/taskCreate.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view wx:if="{{task==0}}" slot="content">送货</view>
+  <view wx:if="{{task==1}}" slot="content">取件</view>
+</cu-custom>
+
+<view class="cu-card">
+  <view class="cu-item radius margin bg-white">
+    <view class="action margin text-xl solid-bottom padding" bindtap="toAddressDetail" data-id="0">
+      <text wx:if="{{!sourceAddress}}" class="cuIcon-title text-blue">从哪里取件</text>
+      <text wx:if="{{sourceAddress}}" class="cuIcon-title text-blue"></text>{{sourceAddress}}
+      <view wx:if="{{sourceName}}" class="text-blue">{{sourceName}} ({{sourceSex}}) {{sourcePhone}}</view>
+    </view>
+    <view class="action margin text-xl solid-bottom padding" bindtap="toAddressDetail" data-id="1">
+      <text  wx:if="{{!destinAddress}}" class="cuIcon-title text-red">送到哪里去</text>
+      <text wx:if="{{destinAddress}}" class="cuIcon-title text-blue"></text>{{destinAddress}}
+      <view wx:if="{{destinName}}" class="text-blue">{{destinName}} ({{destinSex}}) {{destinPhone}}</view>
+    </view>
+    <view class="cu-form-group">
+      <view wx:if="{{changeArriveTime==0}}" class="title">立即送出</view>
+      <view wx:if="{{changeArriveTime==1}}" class="title">选择送达时间</view>
+      <picker mode="time" value="{{time}}" start="{{time}}" end="21:01" bindchange="TimeChange">
+        <view class="picker">
+          {{str}}（{{time}}）
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="cu-item radius margin bg-white">
+    <view class="margin" style="height: 300rpx;">
+      <input placeholder="备注：" bindinput='descriptionInput'></input>
+    </view>
+  </view>
+  <view class="cu-item radius margin bg-white">
+    <view class="cu-form-group">
+      <view class="title">物品重量</view>
+      <picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+        <view class="picker">
+          {{index?picker[index]:'选择物品重量或在备注中声明'}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">支付方式</view>
+      <picker bindchange="PickerChange1" value="{{index1}}" range="{{picker1}}">
+        <view class="picker">
+          {{index1?picker1[index1]:'线上支付请在备注注明微信号'}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group" bindtap="showModal" data-target="bottomModal">
+      <view class="title">小费金额</view>
+      <text class="text-price text-red text-xl">{{tip}}</text>
+    </view>
+  </view>
+  <!-- <view class="cu-bar btn-group margin-top-xl">
+    <button class="cu-btn block bg-blue margin-top lg" bindtap="submit">需求发布</button>
+  </view> -->
+  <view class="cu-bar bg-GongyouGray tabbar border">
+  </view>
+
+  <view class="cu-bar bg-white tabbar border shop bottomBar">
+    <button class="action" open-type="contact">
+      <view class="cuIcon-service text-green">
+      </view>
+      客服
+    </button>
+    <view class="margin">
+      <text class="text-lg">预估费用：</text>
+      <text class="text-price text-red text-xl">{{tip+1}}</text>
+    </view>
+
+    <view class="submit bg-GongyouBlue" bindtap="submit">需求发布</view>
+  </view>
+</view>
+
+<!-- 底部弹窗 -->
+<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white">
+      <!-- <view class="action text-green">确定</view> -->
+      <view class="action text-blue" bindtap="hideModal">确定</view>
+    </view>
+    <view class="padding-xl">
+      <view class="section section_gap">
+        <text class="section__title">滑动选择小费金额</text>
+        <view><text class="text-price text-red text-xl">{{tip}}</text></view>
+        
+        <view class="body-view">
+          <slider bindchange="sliderchange" min="0" max="200" show-value />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+	<!-- <view class='cuIcon-emojifill text-orange'></view> -->
+	<image src='/images/logo.png' class='png' mode='aspectFit'></image>
+	<view class='gray-text'>提交中...</view>
+</view>

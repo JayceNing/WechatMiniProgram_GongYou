@@ -1,0 +1,264 @@
+<!--pages/myOrder/myOrder.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">订单</view>
+</cu-custom>
+<view class="text-center">
+  <view wx:if="{{identity==0}}" class="flex margin-xs" style="width:400rpx;">
+    <button class="cu-btn round bg-GongyouBlue shadow" bindtap="changeMyIdentityTo0">我发布的</button>
+    <button class="cu-btn round bg-white shadow text-gray" bindtap="changeMyIdentityTo1">我接受的</button>
+  </view>
+  <view wx:else class="flex margin-xs" style="width:400rpx;">
+    <button class="cu-btn round bg-white text-gray shadow" bindtap="changeMyIdentityTo0">我发布的</button>
+    <button class="cu-btn round bg-GongyouBlue shadow text-gray" bindtap="changeMyIdentityTo1">我接受的</button>
+  </view>
+</view>
+<block wx:if="{{identity==0}}">
+  <view class="cu-card radius margin-xs bg-white shadow">
+    <view class='topTabSwiper'>
+      <view class='tab {{currentData == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent'>待接受</view>
+      <view class='tab {{currentData == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent'>进行中</view>
+      <view class='tab {{currentData == 2 ? "tabBorer" : ""}}' data-current="2" bindtap='checkCurrent'>已完成</view>
+    </view>
+    <block wx:if="{{currentData == 0&&queryresult00}}" wx:for="{{queryresult00}}" data-item="item" wx:for-index="idx">
+      <view class="solid-bottom shadow radius padding-top padding-right padding-left" bindtap='onTapOrder' data-_id='{{item._id}}'
+        data-destinAddress='{{item.destinAddress}}' data-destinAddressDetail='{{item.destinAddressDetail}}'
+        data-destinName='{{item.destinName}}' data-destinPhone='{{item.destinPhone}}'
+        data-destinSex='{{item.destinSex}}' data-iCase='{{item.iCase}}' data-sourceAddress='{{item.sourceAddress}}'
+        data-sourceAddressDetail='{{item.sourceAddressDetail}}' data-sourceName='{{item.sourceName}}'
+        data-sourcePhone='{{item.sourcePhone}}' data-sourceSex='{{item.sourceSex}}' data-type='{{item.type}}'
+        data-userinfo='{{item.userinfo}}' data-y='{{item.y}}' data-m='{{item.m}}' data-d='{{item.d}}'
+        data-h='{{item.h}}' data-mm='{{item.mm}}' data-time='{{item.time}}' data-state='{{item.state}}'
+        data-_openid='{{item._openid}}' data-taskRecipientOpenid="{{item.taskRecipientOpenid}}" data-taskRecipientUserInfoName="{{item.taskRecipientUserInfoName}}"
+        data-taskRecipientUserInfoPhone="{{item.taskRecipientUserInfoPhone}}" data-taskReceivedTime="{{item.taskReceivedTime}}"
+        data-taskFinishTime="{{item.taskFinishTime}}">
+        <view class="flex justify-between margin-left margin-right margin-bottom-xs">
+          <view>
+            <view wx:if="{{item.type==0}}" class="cu-tag bg-blue">汽车</view>
+            <view wx:if="{{item.type==1}}" class="cu-tag bg-cyan">电动车</view>
+            <view wx:if="{{item.type==2}}" class="cu-tag bg-green">人力</view>
+            <view wx:if="{{item.iCase==1}}" class="cu-tag bg-GongyouBlue">快递箱</view>
+          </view>
+
+          <view wx:if="{{item.state==0}}" class="cu-tag bg-blue">待接受</view>
+          <view wx:if="{{item.state==1}}" class="cu-tag bg-cyan">进行中</view>
+          <view wx:if="{{item.state==2}}" class="cu-tag bg-green">已完成</view>
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>{{item.sourceAddress.name}}
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-red">送</view>{{item.destinAddress.name}}
+        </view>
+        <view class="text-gray text-df text-right">
+          预期运输时间：{{item.y}}年{{item.m}}月{{item.d}}日{{item.h}}时{{item.mm}}分
+        </view>
+      </view>
+      <view class="text-right">
+        <button class="cu-btn round bg-white shadow text-gray margin-xs" style="width: fit-content;"
+          bindtap="deleteOrder" data-_id='{{item._id}}'>删除订单</button>
+      </view>
+    </block>
+    <block wx:if="{{currentData == 0&&queryresult00==''}}">
+      <view class='cu-card margin text-center' style="height: 400rpx;">
+        <image style="width:200rpx; height:200rpx" src="/images/empty1.png"></image>
+        <text>还没有记录哦……</text>
+        <button class="cu-btn round bg-white shadow text-gray margin" bindtap="toDefault">去下单</button>
+      </view>
+    </block>
+    <block wx:if="{{currentData == 1&&queryresult01}}" wx:for="{{queryresult01}}" data-item="item" wx:for-index="idx">
+      <view class="solid-bottom shadow radius padding" bindtap='onTapOrder' data-_id='{{item._id}}'
+        data-destinAddress='{{item.destinAddress}}' data-destinAddressDetail='{{item.destinAddressDetail}}'
+        data-destinName='{{item.destinName}}' data-destinPhone='{{item.destinPhone}}'
+        data-destinSex='{{item.destinSex}}' data-iCase='{{item.iCase}}' data-sourceAddress='{{item.sourceAddress}}'
+        data-sourceAddressDetail='{{item.sourceAddressDetail}}' data-sourceName='{{item.sourceName}}'
+        data-sourcePhone='{{item.sourcePhone}}' data-sourceSex='{{item.sourceSex}}' data-type='{{item.type}}'
+        data-userinfo='{{item.userinfo}}' data-y='{{item.y}}' data-m='{{item.m}}' data-d='{{item.d}}'
+        data-h='{{item.h}}' data-mm='{{item.mm}}' data-time='{{item.time}}' data-state='{{item.state}}'
+        data-_openid='{{item._openid}}' data-taskRecipientOpenid="{{item.taskRecipientOpenid}}" data-taskRecipientUserInfoName="{{item.taskRecipientUserInfoName}}"
+        data-taskRecipientUserInfoPhone="{{item.taskRecipientUserInfoPhone}}" data-taskReceivedTime="{{item.taskReceivedTime}}"
+        data-taskFinishTime="{{item.taskFinishTime}}">
+        <view class="flex justify-between margin-left margin-right margin-bottom-xs">
+          <view>
+            <view wx:if="{{item.type==0}}" class="cu-tag bg-blue">汽车</view>
+            <view wx:if="{{item.type==1}}" class="cu-tag bg-cyan">电动车</view>
+            <view wx:if="{{item.type==2}}" class="cu-tag bg-green">人力</view>
+            <view wx:if="{{item.iCase==1}}" class="cu-tag bg-GongyouBlue">快递箱</view>
+          </view>
+
+          <view wx:if="{{item.state==0}}" class="cu-tag bg-blue">待接受</view>
+          <view wx:if="{{item.state==1}}" class="cu-tag bg-cyan">进行中</view>
+          <view wx:if="{{item.state==2}}" class="cu-tag bg-green">已完成</view>
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>{{item.sourceAddress.name}}
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-red">送</view>{{item.destinAddress.name}}
+        </view>
+        <view class="text-gray text-df text-right">
+          预期运输时间：{{item.y}}年{{item.m}}月{{item.d}}日{{item.h}}时{{item.mm}}分
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{currentData == 1&&queryresult01==''}}">
+      <view class='cu-card margin text-center' style="height: 400rpx;">
+        <image style="width:200rpx; height:200rpx" src="/images/empty1.png"></image>
+        <text>还没有记录哦……</text>
+        <button class="cu-btn round bg-white shadow text-gray margin" bindtap="toDefault">去下单</button>
+      </view>
+    </block>
+    <block wx:if="{{currentData == 2&&queryresult02}}" wx:for="{{queryresult02}}" data-item="item" wx:for-index="idx">
+      <view class="solid-bottom shadow radius padding" bindtap='onTapOrder' data-_id='{{item._id}}'
+        data-destinAddress='{{item.destinAddress}}' data-destinAddressDetail='{{item.destinAddressDetail}}'
+        data-destinName='{{item.destinName}}' data-destinPhone='{{item.destinPhone}}'
+        data-destinSex='{{item.destinSex}}' data-iCase='{{item.iCase}}' data-sourceAddress='{{item.sourceAddress}}'
+        data-sourceAddressDetail='{{item.sourceAddressDetail}}' data-sourceName='{{item.sourceName}}'
+        data-sourcePhone='{{item.sourcePhone}}' data-sourceSex='{{item.sourceSex}}' data-type='{{item.type}}'
+        data-userinfo='{{item.userinfo}}' data-y='{{item.y}}' data-m='{{item.m}}' data-d='{{item.d}}'
+        data-h='{{item.h}}' data-mm='{{item.mm}}' data-time='{{item.time}}' data-state='{{item.state}}'
+        data-_openid='{{item._openid}}' data-taskRecipientOpenid="{{item.taskRecipientOpenid}}" data-taskRecipientUserInfoName="{{item.taskRecipientUserInfoName}}"
+        data-taskRecipientUserInfoPhone="{{item.taskRecipientUserInfoPhone}}" data-taskReceivedTime="{{item.taskReceivedTime}}"
+        data-taskFinishTime="{{item.taskFinishTime}}">
+        <view class="flex justify-between margin-left margin-right margin-bottom-xs">
+          <view>
+            <view wx:if="{{item.type==0}}" class="cu-tag bg-blue">汽车</view>
+            <view wx:if="{{item.type==1}}" class="cu-tag bg-cyan">电动车</view>
+            <view wx:if="{{item.type==2}}" class="cu-tag bg-green">人力</view>
+            <view wx:if="{{item.iCase==1}}" class="cu-tag bg-GongyouBlue">快递箱</view>
+          </view>
+
+          <view wx:if="{{item.state==0}}" class="cu-tag bg-blue">待接受</view>
+          <view wx:if="{{item.state==1}}" class="cu-tag bg-cyan">进行中</view>
+          <view wx:if="{{item.state==2}}" class="cu-tag bg-green">已完成</view>
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>{{item.sourceAddress.name}}
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-red">送</view>{{item.destinAddress.name}}
+        </view>
+        <view class="text-gray text-df text-right">
+          预期运输时间：{{item.y}}年{{item.m}}月{{item.d}}日{{item.h}}时{{item.mm}}分
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{currentData == 2&&queryresult02==''}}">
+      <view class='cu-card margin text-center' style="height: 400rpx;">
+        <image style="width:200rpx; height:200rpx" src="/images/empty1.png"></image>
+        <text>还没有记录哦……</text>
+        <button class="cu-btn round bg-white shadow text-gray margin" bindtap="toDefault">去下单</button>
+      </view>
+    </block>
+  </view>
+</block>
+<block wx:if="{{identity==1}}">
+  <view class="cu-card radius margin-xs bg-white shadow">
+    <view class='topTabSwiper'>
+      <view class='tab {{currentData2 == 0 ? "tabBorer" : ""}}' data-current="0" bindtap='checkCurrent2'>进行中</view>
+      <view class='tab {{currentData2 == 1 ? "tabBorer" : ""}}' data-current="1" bindtap='checkCurrent2'>已完成</view>
+    </view>
+  
+  <block wx:if="{{currentData2 == 0&&queryresult10}}" wx:for="{{queryresult10}}" data-item="item" wx:for-index="idx">
+      <view class="solid-bottom shadow radius padding-top padding-right padding-left" bindtap='onTapOrder' data-_id='{{item._id}}'
+        data-destinAddress='{{item.destinAddress}}' data-destinAddressDetail='{{item.destinAddressDetail}}'
+        data-destinName='{{item.destinName}}' data-destinPhone='{{item.destinPhone}}'
+        data-destinSex='{{item.destinSex}}' data-iCase='{{item.iCase}}' data-sourceAddress='{{item.sourceAddress}}'
+        data-sourceAddressDetail='{{item.sourceAddressDetail}}' data-sourceName='{{item.sourceName}}'
+        data-sourcePhone='{{item.sourcePhone}}' data-sourceSex='{{item.sourceSex}}' data-type='{{item.type}}'
+        data-userinfo='{{item.userinfo}}' data-y='{{item.y}}' data-m='{{item.m}}' data-d='{{item.d}}'
+        data-h='{{item.h}}' data-mm='{{item.mm}}' data-time='{{item.time}}' data-state='{{item.state}}'
+        data-_openid='{{item._openid}}' data-taskRecipientOpenid="{{item.taskRecipientOpenid}}" data-taskRecipientUserInfoName="{{item.taskRecipientUserInfoName}}"
+        data-taskRecipientUserInfoPhone="{{item.taskRecipientUserInfoPhone}}" data-taskReceivedTime="{{item.taskReceivedTime}}"
+        data-taskFinishTime="{{item.taskFinishTime}}">
+        <view class="flex justify-between margin-left margin-right margin-bottom-xs">
+          <view>
+            <view wx:if="{{item.type==0}}" class="cu-tag bg-blue">汽车</view>
+            <view wx:if="{{item.type==1}}" class="cu-tag bg-cyan">电动车</view>
+            <view wx:if="{{item.type==2}}" class="cu-tag bg-green">人力</view>
+            <view wx:if="{{item.iCase==1}}" class="cu-tag bg-GongyouBlue">快递箱</view>
+          </view>
+
+          <view wx:if="{{item.state==0}}" class="cu-tag bg-blue">待接受</view>
+          <view wx:if="{{item.state==1}}" class="cu-tag bg-cyan">进行中</view>
+          <view wx:if="{{item.state==2}}" class="cu-tag bg-green">已完成</view>
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>{{item.sourceAddress.name}}
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-red">送</view>{{item.destinAddress.name}}
+        </view>
+        <view class="text-gray text-df text-right">
+          预期运输时间：{{item.y}}年{{item.m}}月{{item.d}}日{{item.h}}时{{item.mm}}分
+        </view>
+        <view class="text-gray text-df text-right">
+          接单时间：{{item.taskReceivedTime}}
+        </view>
+      </view>
+      <view class="text-right">
+        <button class="cu-btn round bg-white shadow text-gray margin-xs" style="width: fit-content;"
+          bindtap="returnOrder" data-_id='{{item._id}}'>退还订单</button>
+      </view>
+    </block>
+    <block wx:if="{{currentData2 == 0&&queryresult10==''}}">
+      <view class='cu-card margin text-center' style="height: 400rpx;">
+        <image style="width:200rpx; height:200rpx" src="/images/empty1.png"></image>
+        <text>还没有记录哦……</text>
+        <button class="cu-btn round bg-white shadow text-gray margin" bindtap="toDefault">去下单</button>
+      </view>
+    </block>
+    <block wx:if="{{currentData2 == 1&&queryresult11}}" wx:for="{{queryresult11}}" data-item="item" wx:for-index="idx">
+      <view class="solid-bottom shadow radius padding-top padding-right padding-left" bindtap='onTapOrder' data-_id='{{item._id}}'
+        data-destinAddress='{{item.destinAddress}}' data-destinAddressDetail='{{item.destinAddressDetail}}'
+        data-destinName='{{item.destinName}}' data-destinPhone='{{item.destinPhone}}'
+        data-destinSex='{{item.destinSex}}' data-iCase='{{item.iCase}}' data-sourceAddress='{{item.sourceAddress}}'
+        data-sourceAddressDetail='{{item.sourceAddressDetail}}' data-sourceName='{{item.sourceName}}'
+        data-sourcePhone='{{item.sourcePhone}}' data-sourceSex='{{item.sourceSex}}' data-type='{{item.type}}'
+        data-userinfo='{{item.userinfo}}' data-y='{{item.y}}' data-m='{{item.m}}' data-d='{{item.d}}'
+        data-h='{{item.h}}' data-mm='{{item.mm}}' data-time='{{item.time}}' data-state='{{item.state}}'
+        data-_openid='{{item._openid}}' data-taskRecipientOpenid="{{item.taskRecipientOpenid}}" data-taskRecipientUserInfoName="{{item.taskRecipientUserInfoName}}"
+        data-taskRecipientUserInfoPhone="{{item.taskRecipientUserInfoPhone}}" data-taskReceivedTime="{{item.taskReceivedTime}}"
+        data-taskFinishTime="{{item.taskFinishTime}}">
+        <view class="flex justify-between margin-left margin-right margin-bottom-xs">
+          <view>
+            <view wx:if="{{item.type==0}}" class="cu-tag bg-blue">汽车</view>
+            <view wx:if="{{item.type==1}}" class="cu-tag bg-cyan">电动车</view>
+            <view wx:if="{{item.type==2}}" class="cu-tag bg-green">人力</view>
+            <view wx:if="{{item.iCase==1}}" class="cu-tag bg-GongyouBlue">快递箱</view>
+          </view>
+
+          <view wx:if="{{item.state==0}}" class="cu-tag bg-blue">待接受</view>
+          <view wx:if="{{item.state==1}}" class="cu-tag bg-cyan">进行中</view>
+          <view wx:if="{{item.state==2}}" class="cu-tag bg-green">已完成</view>
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>{{item.sourceAddress.name}}
+        </view>
+        <view class="text-gray text-lg">
+          <view class="cu-avatar sm round margin-left margin-right bg-red">送</view>{{item.destinAddress.name}}
+        </view>
+        <view class="text-gray text-df text-right">
+          预期运输时间：{{item.y}}年{{item.m}}月{{item.d}}日{{item.h}}时{{item.mm}}分
+        </view>
+        <view class="text-gray text-df text-right">
+          完成时间：{{item.taskFinishTime}}
+        </view>
+      </view>
+    </block>
+    <block wx:if="{{currentData2 == 1&&queryresult11==''}}">
+      <view class='cu-card margin text-center' style="height: 400rpx;">
+        <image style="width:200rpx; height:200rpx" src="/images/empty1.png"></image>
+        <text>还没有记录哦……</text>
+        <button class="cu-btn round bg-white shadow text-gray margin" bindtap="toDefault">去下单</button>
+      </view>
+    </block>
+  </view>
+</block>
+
+<!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+  <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+  <view class='gray-text'>加载中...</view>
+</view>

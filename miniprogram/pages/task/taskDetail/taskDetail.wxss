@@ -1,0 +1,10 @@
+/* pages/task/taskDetail/taskDetail.wxss */
+page{
+  background-color:  rgb(245, 245, 245);
+}
+.bottomBar
+{
+  width:100%;
+	position:fixed;
+  bottom:0px;
+}

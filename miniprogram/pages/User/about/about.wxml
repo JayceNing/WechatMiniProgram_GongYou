@@ -1,0 +1,17 @@
+<!--miniprogram/pages/me/about/about.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">开发信息</view>
+</cu-custom>
+<view>
+  <image style="width:750rpx; height:252rpx" lazy-load='true' src="/images/banner.png"></image>
+</view>
+<view class='margin-xl bg-white padding-xl radius shadow-lg'>
+  <view class='text-center margin-bottom text-xl  text-grey'></view>
+  <view class='text-center margin-bottom margin-top text-lg  text-grey'>公邮·物联网</view>
+  <view class='text-center margin-bottom text-lg  text-grey'>乡村物流“最后一公里”解决方案</view>
+  <view class='text-content'>
+    <view class='text-center'>开发版本：1.0.0</view>
+    <view class='text-center margin-top-sm'>开发者团队：北邮公邮</view>
+  </view>
+</view>

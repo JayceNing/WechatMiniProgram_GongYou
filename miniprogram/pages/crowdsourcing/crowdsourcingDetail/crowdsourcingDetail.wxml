@@ -1,0 +1,81 @@
+<!--pages/crowdsourcing/crowdsourcingDetail/crowdsourcingDetail.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">订单详情</view>
+</cu-custom>
+<view class="cu-card">
+	<view wx:if="{{state==1||state==2}}" class="cu-item margin bg-white shadow radius">
+		<view class="margin">接单人姓名：{{taskrecipientuserinfoname}}</view>
+		<view class="margin">接单人手机号：{{taskrecipientuserinfophone}}</view>
+		<view class="margin">接单时间：{{taskreceivedtime}}</view>
+	</view>
+	<view class="cu-item radius margin bg-white shadow">
+		<view class="margin text-right">
+			<view wx:if="{{state==0}}" class="cu-tag bg-blue">待接受</view>
+		</view>
+		<view class="margin text-right">
+			<view wx:if="{{state==1}}" class="cu-tag bg-cyan">进行中</view>
+		</view>
+		<view class="margin text-right">
+			<view wx:if="{{state==2}}" class="cu-tag bg-green">已完成</view>
+		</view>
+		<view class="margin text-lg">
+			<view class="cu-avatar sm round margin-left margin-right bg-blue">取</view>取件处:
+		</view>
+		<view class="margin text-lg">{{sourceaddress.address}}{{sourceaddress.address.name}}</view>
+		<view class="margin text-gray">{{sourcename}}({{sourcesex}}) {{sourcephone}}</view>
+		<view class="margin text-lg">
+			<view class="cu-avatar sm round margin-left margin-right bg-red">送</view>送至：
+		</view>
+		<view class="margin text-lg">{{destinaddress.address}}{{destinaddress.name}}</view>
+		<view class="margin text-gray">{{destinname}}({{destinsex}}) {{destinphone}}</view>
+		<view class="margin cu-card"></view>
+		<view class="margin">运输方式：
+			<view wx:if="{{type==0}}" class="cu-tag bg-blue">汽车</view>
+			<view wx:if="{{type==1}}" class="cu-tag bg-cyan">电动车</view>
+			<view wx:if="{{type==2}}" class="cu-tag bg-green">人力</view>
+			<view wx:if="{{iCase==1}}" class="cu-tag bg-GongyouBlue">快递箱</view>
+		</view>
+		<view class="margin">运输时间：{{y}}年{{m}}月{{d}}日{{h}}时{{mm}}分</view>
+		<view wx:if="{{state==0&&_openid==globalDataOpenid}}" class="text-right margin-xs">
+			<button class="cu-btn round bg-white shadow text-gray" style="width: fit-content;"
+				bindtap="deleteOrder">删除订单</button>
+		</view>
+		<view wx:if="{{state==1&&taskrecipientopenid==globalDataOpenid}}" class="text-right margin-xs">
+			<button class="cu-btn round bg-white shadow text-gray" style="width: fit-content;"
+				bindtap="returnOrder">退还订单</button>
+		</view>
+	</view>
+	<view class="cu-item margin bg-white shadow radius">
+		<view class="margin">订单编号：{{_id}}</view>
+		<view class="margin">下单人姓名：{{userinfo.userrealname}}</view>
+		<view class="margin">下单人手机号：{{userinfo.phone}}</view>
+	</view>
+</view>
+<!-- 底部占空间 -->
+<view class="bg-GongyouGray" style="height: 100rpx;">
+</view>
+
+<!-- 底部占空间 -->
+<view class="cu-bar bg-white tabbar border shop bottomBar">
+	<button class="action" open-type="contact">
+		<view class="cuIcon-service text-green">
+		</view>
+		客服
+	</button>
+	<!-- <view class="margin">
+		<text class="text-lg">预期收益：</text>
+		<text class="text-price text-red text-xl">{{price}}</text>
+	</view>
+  <view wx:if="{{receiverUsername}}" class="submit bg-GongyouBlue" bindtap="contactSender">联系发单人</view> -->
+	<view wx:if="{{state==0}}" class="submit bg-GongyouBlue" bindtap="taskAccept">接受订单</view>
+	<view wx:if="{{state==1}}" class="submit bg-GongyouBlue" bindtap="">完成订单</view>
+</view>
+
+
+<!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+	<!-- <view class='cuIcon-emojifill text-orange'></view> -->
+	<image src='/images/logo.png' class='png' mode='aspectFit'></image>
+	<view class='gray-text'>提交中...</view>
+</view>

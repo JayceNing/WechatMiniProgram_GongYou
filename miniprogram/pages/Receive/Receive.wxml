@@ -1,0 +1,13 @@
+<!--pages/Receive/Receive.wxml-->
+<cu-custom bgColor="bg-GongyouBlue">
+	<view slot="content">公邮</view>
+</cu-custom>
+<view class='v'>
+<view class='box'>
+  <view>发布取件任务</view>
+</view>
+
+<view class='box'>
+  <view>查看派送进程</view>
+</view>
+</view>

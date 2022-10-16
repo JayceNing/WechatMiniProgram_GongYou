@@ -1,0 +1,12 @@
+/* pages/crowdsourcing/crowdsourcing.wxss */
+page{
+  background-color: rgb(245, 245, 245);
+}
+
+.swiper_no {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  color: rgb(161, 161, 161);
+  font-size: 14px;
+}

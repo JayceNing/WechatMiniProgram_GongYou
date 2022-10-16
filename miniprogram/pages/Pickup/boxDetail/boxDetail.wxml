@@ -1,0 +1,28 @@
+<!--pages/Pickup/boxDetail/boxDetail.wxml-->
+<cu-custom bgColor="bg-GongyouBlue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">{{busLine}}</view>
+</cu-custom>
+
+<view class="cu-card">
+  <view wx:for="{{packageList}}" wx:key>
+    <view class="cu-item radius margin radius bg-white">
+      <view class="flex">
+        <view class="margin">
+          <image style="width:150rpx; height:150rpx; border-radius: 12%;" src="/images/box.png"></image>
+        </view>
+        <view class="margin">
+        <view><text class="text-xl text-orange">乡镇中学 —— 集散中心</text></view>
+        <view><text>发件人：{{item.sender}}</text></view>
+        <view><text>收件人：{{item.receiver}}</text></view>
+          <view>订单编号：{{item.id}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="scanCode cu-btn block bg-GongyouBlue" style="--ScreenHeight80Percent--: {{ScreenHeight80Percent}}px"
+  bindtap="scanQRCode">扫码添加</view>
+<view class="checkPackage cu-btn block bg-green" style="--ScreenHeight90Percent--: {{ScreenHeight90Percent}}px"
+  bindtap="toTaskCreate">手动添加</view>

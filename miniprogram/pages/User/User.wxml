@@ -1,0 +1,85 @@
+<!--pages/User/User.wxml-->
+<cu-custom bgColor="bg-GongyouBlue">
+	<view slot="content">公邮</view>
+</cu-custom>
+<image style="width:750rpx; height:63rpx" lazy-load='true' src="/images/user.png"></image>
+<view class="user">
+  <view class="userinfo">
+    <block wx:if="{{canIUseOpenData}}">
+      <view class="userinfo-avatar" bindtap="bindViewTap">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <open-data type="userNickName"></open-data>
+    </block>
+    <block wx:elif="{{!hasUserInfo}}">
+      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
+      <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <view wx:else> 请使用1.4.4及以上版本基础库 </view>
+    </block>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+</view>
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+  <!-- <view wx:if="{{!bindGongyouAccount}}" class="cu-item arrow">
+    <view class="content" bindtap="toBindAccount">
+      <text class="text-grey margin-left-xl">绑定账号</text>
+    </view>
+  </view> -->
+  <!-- <view wx:if="{{bindGongyouAccount}}" class="cu-item arrow">
+    <view class="content" bindtap="unbindAccount">
+      <text class="text-grey margin-left-xl">解除绑定</text>
+    </view>
+  </view> -->
+  <view wx:if="{{openid}}" class="cu-item arrow">
+    <view class="content" bindtap="toUserInfo">
+      <text class="text-grey margin-left-xl">账号信息</text>
+    </view>
+  </view>
+  <view wx:if="{{openid}}" class="cu-item arrow">
+    <view class="content" bindtap="mr">
+      <text class="text-grey margin-left-xl">我的快件</text>
+    </view>
+  </view>
+  <view wx:if="{{openid}}" class="cu-item arrow">
+    <view class="content" bindtap="imf">
+      <text class="text-grey margin-left-xl">送件记录</text>
+    </view>
+  </view>
+  <view class="cu-item arrow">
+    <button class="cu-btn content" open-type="feedback">
+      <text class="text-grey margin-left-xl">意见反馈</text>
+    </button>
+  </view>
+  <view class="cu-item arrow">
+    <navigator class="content" url="/pages/User/about/about" hover-class="none">
+      <text class="text-grey margin-left-xl">开发信息</text>
+    </navigator>
+  </view>
+</view>
+
+<!-- 底部tabbar -->
+<view class="cu-bar tabbar bg-white radius">
+    <view class="action text-gray" bindtap="toDefault">
+      <view class="cuIcon-homefill"></view> 首页
+    </view>
+    <view class="action text-gray add-action">
+      <button class="cu-btn cuIcon-scan bg-GongyouBlue shadow" bindtap="scanCode"></button>
+      扫码
+    </view>
+    <view class="action text-blue">
+      <view class="cuIcon-my">
+      </view>
+      我的
+    </view>
+  </view>
+
+  <!-- 加载框 -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+  <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+  <view class='gray-text'>登录中...</view>
+</view>

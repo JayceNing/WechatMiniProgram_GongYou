@@ -1,0 +1,40 @@
+/* pages/Despatch/Despatch.wxss */
+/* .mapcont {
+  height: 1334rpx;
+  width: 100%;
+} */
+page{
+  background-color:  rgb(245, 245, 245);
+}
+.map {
+  width:100%;
+  height:var(--screenHeight--);
+  position: relative;
+}
+.scanCode{
+  position: fixed;
+  top: var(--ScreenHeight80Percent--);
+  height: 100rpx;
+  width: 300rpx;
+  left:30%;
+  border-radius: 10px;
+  
+}
+.busLine{
+  position: fixed;
+  top: var(--ScreenHeight15Percent--);
+  height: 120rpx;
+  width: 90%;
+  left:5%;
+  border-radius: 10px;
+  
+}
+.checkPackage{
+  position: fixed;
+  top: var(--ScreenHeight90Percent--);
+  height: 100rpx;
+  width: 300rpx;
+  left:30%;
+  border-radius: 10px;
+  
+}
