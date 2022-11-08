@@ -42,7 +42,7 @@
   "appid": "wxfd9f2af920fc7864",
   "projectname": "%E5%85%AC%E9%82%AEplus",
   "libVersion": "2.14.1",
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "condition": {
     "search": {
       "list": []
@@ -65,5 +65,15 @@
         }
       ]
     }
+  },
+  "compileType": "miniprogram",
+  "srcMiniprogramRoot": "miniprogram/",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
   }
 }
